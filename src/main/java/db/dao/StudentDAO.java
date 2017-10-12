@@ -117,7 +117,7 @@ public class StudentDAO implements IAbstractDAO<Student> {
         PreparedStatement statement = null;
         try {
             statement = manager.getConnection().prepareStatement(
-                    "DELETE public.\"student\" WHERE id = ? ");
+                    "DELETE FROM public.\"student\" WHERE id = ? ");
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

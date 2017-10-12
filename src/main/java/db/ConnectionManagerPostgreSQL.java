@@ -14,7 +14,7 @@ public class ConnectionManagerPostgreSQL implements IConnectionManager {
             Class.forName("org.postgresql.Driver");
             connection =
                     DriverManager.getConnection(
-                            "jdbc:postgresql://localhost:5432/students",
+                            "jdbc:postgresql://localhost:5433/students",
                             "postgres",
                             "admin");
         } catch (SQLException e) {

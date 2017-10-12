@@ -13,7 +13,8 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         if ("test".equals(login) && "test".equals(password)){
             req.getSession().setAttribute("isAuth", true);
-            req.getRequestDispatcher("/hello").forward(req, resp);
+//            req.getRequestDispatcher("/student").forward(req, resp);
+            ((HttpServletResponse)resp).sendRedirect("/webstudents/student");
         }else{
             getServletContext().getRequestDispatcher("/").forward(req, resp);
         }

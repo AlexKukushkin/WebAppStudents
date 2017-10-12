@@ -5,14 +5,14 @@
          version="3.1">
     <servlet>
         <servlet-name>
-            MyServletStudent
+            StudentServlet
         </servlet-name>
         <servlet-class>
             servlets.StudentServlet
         </servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MyServletStudent</servlet-name>
+        <servlet-name>StudentServlet</servlet-name>
         <url-pattern>/student</url-pattern>
     </servlet-mapping>
 
@@ -31,18 +31,6 @@
 
     <servlet>
         <servlet-name>
-            MyServletGroup
-        </servlet-name>
-        <servlet-class>
-            servlets.GroupServlet
-        </servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>MyServletGroup</servlet-name>
-        <url-pattern>/group</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>
             LoginServlet
         </servlet-name>
         <servlet-class>
@@ -59,6 +47,19 @@
     </filter>
     <filter-mapping>
         <filter-name>login</filter-name>
-        <url-pattern>/hello</url-pattern>
+        <url-pattern>/student</url-pattern>
     </filter-mapping>
+
+    <servlet>
+        <servlet-name>
+            DeleteStudentServlet
+        </servlet-name>
+        <servlet-class>
+            servlets.DeleteStudentServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteStudentServlet</servlet-name>
+        <url-pattern>/deleteById</url-pattern>
+    </servlet-mapping>
 </web-app>

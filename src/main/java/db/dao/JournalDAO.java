@@ -1,4 +1,4 @@
-package db.dao;
-
-public class JournalDAO {
-}
+//package db.dao;
+//
+//public class JournalDAO {
+//}
