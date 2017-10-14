@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<form method="post">
+<form action="${pageContext.servletContext.contextPath}/create" method="POST">
     <table style="width:100%">
         <tr>
             <th>Id Student</th>
@@ -34,29 +34,16 @@
         </tr>
         <c:forEach items="${list}" var="item">
             <tr>
+                <td><p><c:out value="${item.id}"></c:out></p></td>
+                <td><p><c:out value="${item.firstName}"></c:out></p></td>
+                <td><p><c:out value="${item.secondName}"></c:out></p></td>
+                <td><p><c:out value="${item.familyName}"></c:out></p></td>
+                <td><p><c:out value="${item.birthDay}"></c:out></p></td>
+                <td><p><c:out value="${item.group_id}"></c:out></p></td>
                 <td>
-                    <p><c:out value="${item.id}"></c:out></p>
-                </td>
-                <td>
-                    <p><c:out value="${item.firstName}"></c:out></p>
-                </td>
-                <td>
-                    <p><c:out value="${item.secondName}"></c:out></p>
-                </td>
-                <td>
-                    <p><c:out value="${item.familyName}"></c:out></p>
-                </td>
-                <td>
-                    <p><c:out value="${item.birthDay}"></c:out></p>
-                </td>
-                <td>
-                    <p><c:out value="${item.group_id}"></c:out></p>
-                </td>
-                <td>
-                    <p><%--<input type="submit" name="delete" value="${item.id}" class="delete"/>--%>
+                    <p>
                         <button name="delete" value="${item.id}" formaction="/webstudents/deleteById">Удалить</button>
-                        <button name="edit" value="${item.id}">Изменить</button>
-                        <%--<button name="edit" value="${item.id}" formaction="/webstudents/editById">Изменить</button>--%>
+                        <button name="edit" value="${item.id}" formaction="/webstudents/editById">Изменить</button>
                     </p>
                 </td>
             </tr>

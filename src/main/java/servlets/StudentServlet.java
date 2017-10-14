@@ -24,8 +24,15 @@ public class StudentServlet extends HttpServlet {
         req.getRequestDispatcher("/student.jsp").forward(req, resp);
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Student> students = null;
+        try {
+            students = new StudentDAO().getAll();
+        } catch (StudentDAO.StudentDAOException e) {
+            e.printStackTrace();
+        }
+        req.setAttribute("list", students);
+        req.getRequestDispatcher("/student.jsp").forward(req, resp);
+    }
 }

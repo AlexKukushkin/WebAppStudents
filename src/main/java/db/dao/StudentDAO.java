@@ -2,11 +2,14 @@ package db.dao;
 
 import db.ConnectionManagerPostgreSQL;
 import db.IConnectionManager;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import pojo.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class StudentDAO implements IAbstractDAO<Student> {
 
@@ -15,14 +18,17 @@ public class StudentDAO implements IAbstractDAO<Student> {
     }
 
     private static IConnectionManager manager;
+    private static final Logger logger = Logger.getLogger(StudentDAO.class);
 
     static {
         manager = ConnectionManagerPostgreSQL.getInstance();
+        //PropertyConfigurator.configure("log4j.properties");
     }
 
     @Override
     public List<Student> getAll() throws StudentDAOException {
         List<Student> studentList = new ArrayList<>();
+        logger.debug("log for getAll Students");
         Statement statement = null;
         try {
             statement = manager.getConnection().createStatement();
@@ -33,7 +39,7 @@ public class StudentDAO implements IAbstractDAO<Student> {
                         resultSet.getInt("id"),
                         resultSet.getString("first_name"),
                         resultSet.getString("second_name"),
-                        resultSet.getString("last_name"),
+                        resultSet.getString("family_name"),
                         resultSet.getString("birth_date"),
                         resultSet.getInt("group_id"));
                 studentList.add(student);
@@ -57,7 +63,7 @@ public class StudentDAO implements IAbstractDAO<Student> {
                     resultSet.getInt("id"),
                     resultSet.getString("first_name"),
                     resultSet.getString("second_name"),
-                    resultSet.getString("last_name"),
+                    resultSet.getString("family_name"),
                     resultSet.getString("birth_date"),
                     resultSet.getInt("group_id"));
         } catch (SQLException e) {
@@ -69,7 +75,7 @@ public class StudentDAO implements IAbstractDAO<Student> {
     private PreparedStatement getUpdateStatement() throws SQLException {
         return manager.getConnection().prepareStatement(
                 "UPDATE public.\"student\" " +
-                        "SET first_name = ?, last_name = ?, second_name = ?, birth_date = ?, group_id = ?" +
+                        "SET first_name = ?, second_name = ?, family_name = ?, birth_date = ?, group_id = ?" +
                         "WHERE id = ? ");
     }
     @Override
@@ -78,8 +84,8 @@ public class StudentDAO implements IAbstractDAO<Student> {
         try {
             statement = getUpdateStatement();
             statement.setString(1, student.getFirstName());
-            statement.setString(2, student.getFamilyName());
-            statement.setString(3, student.getSecondName());
+            statement.setString(2, student.getSecondName());
+            statement.setString(3, student.getFamilyName());
             statement.setDate(4, Date.valueOf(student.getBirthDay()));
             statement.setInt(5, student.getGroup_id());
             statement.setInt(6, student.getId());
@@ -97,8 +103,8 @@ public class StudentDAO implements IAbstractDAO<Student> {
             statement = getUpdateStatement();
             for (Student student : objList) {
                 statement.setString(1, student.getFirstName());
-                statement.setString(2, student.getFamilyName());
-                statement.setString(3, student.getSecondName());
+                statement.setString(2, student.getSecondName());
+                statement.setString(3, student.getFamilyName());
                 statement.setDate(4, Date.valueOf(student.getBirthDay()));
                 statement.setInt(5, student.getGroup_id());
                 statement.setInt(6, student.getId());
@@ -129,7 +135,7 @@ public class StudentDAO implements IAbstractDAO<Student> {
     private PreparedStatement getInsertStatement() throws SQLException {
         return manager.getConnection().prepareStatement(
                 "INSERT INTO public.\"student\" " +
-                        "VALUE  (first_name = ?, last_name = ?, second_name = ?, birth_date = ?, group_id = ?)");
+                        "VALUE  (first_name = ?, second_name = ?, family_name = ?, birth_date = ?, group_id = ?)");
     }
 
     @Override
@@ -138,8 +144,8 @@ public class StudentDAO implements IAbstractDAO<Student> {
         try {
             statement = getInsertStatement();
             statement.setString(1, student.getFirstName());
-            statement.setString(2, student.getFamilyName());
-            statement.setString(3, student.getSecondName());
+            statement.setString(2, student.getSecondName());
+            statement.setString(3, student.getFamilyName());
             statement.setDate(4, Date.valueOf(student.getBirthDay()));
             statement.setInt(5, student.getGroup_id());
             statement.setInt(6, student.getId());
@@ -158,8 +164,8 @@ public class StudentDAO implements IAbstractDAO<Student> {
             statement = getInsertStatement();
             for (Student student : studentList) {
                 statement.setString(1, student.getFirstName());
-                statement.setString(2, student.getFamilyName());
-                statement.setString(3, student.getSecondName());
+                statement.setString(2, student.getSecondName());
+                statement.setString(3, student.getFamilyName());
                 statement.setDate(4, Date.valueOf(student.getBirthDay()));
                 statement.setInt(5, student.getGroup_id());
                 statement.setInt(6, student.getId());
