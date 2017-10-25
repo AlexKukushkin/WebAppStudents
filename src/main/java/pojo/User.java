@@ -2,6 +2,7 @@ package pojo;
 
 public class User {
     private String login;
+    private String password;
 
     public User(String login, String password) {
         this.login = login;
@@ -24,6 +25,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private String password;
 }

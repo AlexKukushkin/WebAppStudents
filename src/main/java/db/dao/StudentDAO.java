@@ -135,7 +135,7 @@ public class StudentDAO implements IAbstractDAO<Student> {
     private PreparedStatement getInsertStatement() throws SQLException {
         return manager.getConnection().prepareStatement(
                 "INSERT INTO public.\"student\" " +
-                        "VALUE  (first_name = ?, second_name = ?, family_name = ?, birth_date = ?, group_id = ?)");
+                        "(id, first_name, second_name, family_name, birth_date, group_id) VALUES(?, ?, ?, ?, ?, ?)");
     }
 
     @Override
@@ -143,18 +143,17 @@ public class StudentDAO implements IAbstractDAO<Student> {
         PreparedStatement statement = null;
         try {
             statement = getInsertStatement();
-            statement.setString(1, student.getFirstName());
-            statement.setString(2, student.getSecondName());
-            statement.setString(3, student.getFamilyName());
-            statement.setDate(4, Date.valueOf(student.getBirthDay()));
-            statement.setInt(5, student.getGroup_id());
-            statement.setInt(6, student.getId());
+            statement.setInt(1, student.getId());
+            statement.setString(2, student.getFirstName());
+            statement.setString(3, student.getSecondName());
+            statement.setString(4, student.getFamilyName());
+            statement.setDate(5, Date.valueOf(student.getBirthDay()));
+            statement.setInt(6, student.getGroup_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new StudentDAOException();
         }
-
     }
 
     @Override
@@ -163,12 +162,12 @@ public class StudentDAO implements IAbstractDAO<Student> {
         try {
             statement = getInsertStatement();
             for (Student student : studentList) {
-                statement.setString(1, student.getFirstName());
-                statement.setString(2, student.getSecondName());
-                statement.setString(3, student.getFamilyName());
-                statement.setDate(4, Date.valueOf(student.getBirthDay()));
-                statement.setInt(5, student.getGroup_id());
-                statement.setInt(6, student.getId());
+                statement.setInt(1, student.getId());
+                statement.setString(2, student.getFirstName());
+                statement.setString(3, student.getSecondName());
+                statement.setString(4, student.getFamilyName());
+                statement.setDate(5, Date.valueOf(student.getBirthDay()));
+                statement.setInt(6, student.getGroup_id());
                 statement.addBatch();
             }
             statement.executeBatch();

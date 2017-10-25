@@ -2,20 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 5px;
-        }
-
-        th {
-            text-align: left;
-        }
-    </style>
+    <c:set var="context" value="${pageContext.request.contextPath}"/>
+    <link type="text/css" rel="stylesheet" href="${context}/css/style_2.css"/>
+    <%--<link rel="stylesheet" href="${context}/css/bootstrap.min.css">--%>
     <title>Students</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -42,13 +31,19 @@
                 <td><p><c:out value="${item.group_id}"></c:out></p></td>
                 <td>
                     <p>
-                        <button name="delete" value="${item.id}" formaction="/webstudents/deleteById">Удалить</button>
-                        <button name="edit" value="${item.id}" formaction="/webstudents/editById">Изменить</button>
+                        <button class="button button3" name="delete" value="${item.id}" formmethod="post" formaction="/webstudents/deleteById">Delete</button>
+                        <button class="button button2" name="edit" value="${item.id}" formaction="/webstudents/editById">Edit</button>
                     </p>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    <div>
+        </br>
+        <button class="button button1" type="addButton" name="add" value="${item.id}" formaction="/webstudents/add"
+                style="margin: auto; display: block">Add student
+        </button>
+    </div>
 </form>
 </body>
 </html>
